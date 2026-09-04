@@ -1,0 +1,44 @@
+<!-- <author>Sourav Mondal/author>
+  <summary>Chat application</summary> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SimpleChat</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar: search + user list -->
+        <aside class="sidebar">
+            <div class="me">
+                <span id="meName">—</span>
+                <button id="logout" title="Logout">⏻</button>
+            </div>
+            <input type="text" id="search" placeholder="🔍 Search users..." autocomplete="off" />
+            <ul id="searchResults"></ul>
+            <ul id="userList" class="user-list"></ul>
+        </aside>
+
+        <!-- Main chat window -->
+        <main class="chat">
+            <header class="chat-header">
+                <span id="chatWith">Select a user to start chatting</span>
+            </header>
+
+            <div id="messages" class="messages"></div>
+
+            <form id="composer" class="composer" style="display:none;">
+                <input type="text" id="messageInput" placeholder="Type a message..." autocomplete="off" />
+                <button type="submit">Send</button>
+            </form>
+        </main>
+    </div>
+
+    <!-- SignalR client from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+    <script src="/js/chat.js"></script>
+</body>
+</html>

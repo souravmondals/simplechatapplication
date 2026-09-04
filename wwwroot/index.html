@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SimpleChat · Login</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="login-body">
+    <div class="login-card">
+        <h1>💬 SimpleChat</h1>
+        <p class="subtitle">Enter your User ID to start chatting</p>
+
+        <form id="loginForm">
+            <input type="text" id="userName" placeholder="e.g. sourav" autocomplete="off" required />
+            <button type="submit">Login</button>
+        </form>
+
+        <p id="error" class="error"></p>
+        <p class="hint">Sample IDs: <code>sourav</code>, <code>arbaz</code>, <code>partha</code></p>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userName = document.getElementById('userName').value.trim();
+            const errorEl = document.getElementById('error');
+            errorEl.textContent = '';
+
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userName })
+            });
+
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                errorEl.textContent = data.message || 'Login failed.';
+                return;
+            }
+
+            const user = await res.json();
+            // Save the logged-in user and go to the chat page
+            sessionStorage.setItem('chatUser', JSON.stringify(user));
+            window.location.href = '/chat.html';
+        });
+    </script>
+</body>
+</html>
